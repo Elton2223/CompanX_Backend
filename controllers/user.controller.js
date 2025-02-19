@@ -73,7 +73,7 @@ function Login(req, res){
                 {
                     const token1 = jwt.sign({
                         email: user.email,
-                        userId: user.email
+                        password: user.password
                     }, "secret");
                      
                     res.status(200).json({
@@ -104,8 +104,21 @@ function Login(req, res){
     });
 }
 
-//Getting all USERS
-function get_All_Users(req, res){
+//getting student with using the student number
+function getUser(req, res){
+    Student.findOne({where: { email:req.userData.userId }}).then(result =>{
+        res.status(200).json(result);
+        console.log(req.userData.userId)
+    }).catch(error =>{
+        res.status(500).json({
+            message: "Something went wrong",
+            error: error
+        });
+    });
+}
+
+//Getting all users
+function getAllUser(req, res){
     User.findAll().then(result =>{
         res.status(200).json(result);
     }).catch(error =>{
@@ -116,8 +129,33 @@ function get_All_Users(req, res){
     });
 }
 
+function updateUser(req, res){
+    const user = {
+        firstName: req.body.firstName,
+        surname: req.body.surname,
+        email: req.body.email,
+        dept: req.body.dept,
+    };
+
+    User.update(user, {where: { email:req.params.email }}).then(result =>{
+        res.status(200).json({
+            message: "User updated successfully",
+            driver: result
+        })
+    }).catch(error =>{
+        res.status(500).json({
+            message: "Something went wrong",
+            error: error
+        });
+    });
+}
+
+
 module.exports = {
     Register : Register,
-    Login: Login
+    Login: Login,
+    getUser: getUser,
+    getAllUser: getAllUser,
+    updateUser: updateUser
 }
 
