@@ -105,6 +105,25 @@ function pendingTask(req, res){
     });
 }
 
+//update description 
+function updateDescription(req, res){
+    const task = {
+        shortDesc: req.body.shortDesc,
+    };
+
+    Task.update(task, {where: { taskRef:req.params.taskRef }}).then(result =>{
+        res.status(200).json({
+            message: "Student updated successfully",
+            driver: result
+        })
+    }).catch(error =>{
+        res.status(500).json({
+            message: "Something went wrong",
+            error: error
+        });
+    });
+}
+
 
 module.exports = {
     create: create, 
@@ -112,5 +131,6 @@ module.exports = {
     endTask: endTask,
     inprogressTask: inprogressTask, 
     pendingTask: pendingTask,
+    updateDescription: updateDescription
 
 }

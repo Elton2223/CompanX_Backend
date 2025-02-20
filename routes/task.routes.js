@@ -10,6 +10,7 @@ router.post('/endTask', taskController.endTask); //end task
 router.post('/inprogressTask', taskController.inprogressTask); //delete task 
 router.post('/pendingTask', taskController.pendingTask); //delete task 
 //router.post('/getCategory', taskController.getCategory); // get tasks by category, it will be implemented if i still get more time
+router.post('/updateDescription/:description', taskController.updateDescription);
 router.post('/getAll', taskController.getAll); //get all tasks
 
 

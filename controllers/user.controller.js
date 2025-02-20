@@ -8,7 +8,6 @@ const User= db.user;
 
 function Register(req, res){
 	User.findOne({where: {email:req.body.email}}).then(result =>{
-        //for checking if the student number already exist
         if(result)
         {
             res.status(409).json({
@@ -104,9 +103,9 @@ function Login(req, res){
     });
 }
 
-//getting student with using the student number
+//getting user with using the email
 function getUser(req, res){
-    Student.findOne({where: { email:req.userData.userId }}).then(result =>{
+    User.findOne({where: { email:req.userData.userId }}).then(result =>{
         res.status(200).json(result);
         console.log(req.userData.userId)
     }).catch(error =>{
