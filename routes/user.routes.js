@@ -10,3 +10,4 @@ router.post('/getUser/:email', userController.getUser);
 router.post('/getAllUser', userController.getAllUser);
 
 module.exports = router;
+
